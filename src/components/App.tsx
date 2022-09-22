@@ -7,6 +7,7 @@ import { baseTheme, lightTheme, darkTheme } from "../styles/theme";
 import useTypeSelector from "../hooks/useTypeSelector";
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../store/countries/countriesAction";
+import SearchInput from "./Search";
 
 const App: FC = () => {
 	const themFromState = useTypeSelector((state) => state.themeBody);
@@ -17,12 +18,14 @@ const App: FC = () => {
 
 	useEffect(() => {
 		dispatch(fetchCountries());
+		// eslint-disable-next-line
 	}, []);
 
 	return (
 		<ThemeProvider theme={{ ...baseTheme, ...themeBody }}>
 			<GlobalStyled />
 			<Header />
+			<SearchInput />
 			<main>
 				{countriesArr.map((item, idx) => (
 					<div key={item.name.common + idx} style={{ margin: "20px 0" }}>

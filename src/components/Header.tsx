@@ -8,7 +8,7 @@ import { toggleTheme } from "../store/themeBody/themBodyActions";
 
 const HeaderStyled = styled.header`
 	padding: 32px 0;
-	box-shadow: ${({ theme }) => theme.colors.shadow};
+	box-shadow: ${({ theme }) => theme.shadow};
 `;
 
 const H1 = styled.h1`

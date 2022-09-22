@@ -38,9 +38,11 @@ dd {
 /* Выставляем основные настройки по-умолчанию для body */
 body {
   font-family: 'Nunito Sans', sans-serif;
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.text};
   font-weight: ${(props) => props.theme.variables.light};
-  background-color: ${(props) => props.theme.colors.bg};  
+  background-color: ${(props) => props.theme.bg};  
+  transition: .3s;
+  transition-property: background-color, box-shadow;
 }
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
