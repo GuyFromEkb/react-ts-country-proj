@@ -3,38 +3,30 @@ import GlobalStyled from "../styles/global";
 import { ThemeProvider } from "styled-components";
 
 import Header from "./Header";
-import { baseTheme, lightTheme, darkTheme } from "../styles/theme";
 import useTypeSelector from "../hooks/useTypeSelector";
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../store/countries/countriesAction";
-import SearchInput from "./Search";
+import Controls from "./Controls";
+import CountryList from "./CountryList";
+import Container from "./Container";
 
 const App: FC = () => {
-	const themFromState = useTypeSelector((state) => state.themeBody);
-	const themeBody = themFromState === "light" ? lightTheme : darkTheme;
+	const themFromState = useTypeSelector((state) => state.themeBody.themeStyled);
 	const dispatch = useDispatch<any>();
-
-	const countriesArr = useTypeSelector((state) => state.countries.countries);
 
 	useEffect(() => {
 		dispatch(fetchCountries());
-		// eslint-disable-next-line
-	}, []);
+	}, [dispatch]);
 
 	return (
-		<ThemeProvider theme={{ ...baseTheme, ...themeBody }}>
+		<ThemeProvider theme={themFromState}>
 			<GlobalStyled />
 			<Header />
-			<SearchInput />
 			<main>
-				{countriesArr.map((item, idx) => (
-					<div key={item.name.common + idx} style={{ margin: "20px 0" }}>
-						<h4>{item.name.common}</h4>
-						<img src={item.flags.png} alt={item.name.common} />
-					</div>
-
-					// <div>{item.name.common}</div>
-				))}
+				<Container>
+					<Controls />
+					<CountryList />
+				</Container>
 			</main>
 		</ThemeProvider>
 	);

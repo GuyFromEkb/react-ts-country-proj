@@ -31,13 +31,13 @@ const Wraper = styled.div`
 `;
 
 const Header: FC = () => {
-	const currentTheme = useTypeSelector((state) => state.themeBody);
+	const currentTheme = useTypeSelector((state) => state.themeBody.themeName);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		localStorage.setItem(
 			"reduxStore",
-			JSON.stringify({ themeBody: currentTheme })
+			JSON.stringify({ themeName: currentTheme })
 		);
 	}, [currentTheme]);
 

@@ -1,5 +1,9 @@
+import React from "react";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSeatchFilter } from "../store/filters/filterActions";
 
 const SearchIcon = styled(BsSearch)`
 	font-size: 20px;
@@ -11,7 +15,7 @@ const SearchIcon = styled(BsSearch)`
 	transition: all 0.3s;
 `;
 
-const InputContainer = styled.label`
+const InputWraper = styled.label`
 	display: inline-flex;
 	align-items: center;
 	background: none;
@@ -28,32 +32,31 @@ const Input = styled.input`
 	border: none;
 	outline: none;
 	border-radius: ${({ theme }) => theme.variables.radius};
-	background: ${({ theme }) => theme.bg};
+	background: ${({ theme }) => theme["ui-base"]};
 	box-shadow: ${({ theme }) => theme.shadow};
 	color: ${({ theme }) => theme.text};
 `;
 
 const SearchInput = () => {
+	const [value, setValue] = useState("");
+	const dispatch = useDispatch();
+
+	const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(e.target.value);
+		dispatch(setSeatchFilter(e.target.value));
+	};
+
 	return (
-		<InputContainer>
+		<InputWraper>
 			<SearchIcon />
-			<Input placeholder="Search for a country" type="text" />
-		</InputContainer>
+			<Input
+				value={value}
+				onChange={onSearch}
+				placeholder="Search for a country"
+				type="text"
+			/>
+		</InputWraper>
 	);
 };
 
 export default SearchInput;
-
-// export function getTransition(
-// 	duration: number = 0.3,
-// 	property: string[] | string = ["background-color", "color"],
-// 	animation = "ease"
-// ) {
-// 	return css`
-// 		transition-property: ${Array.isArray(property)
-// 			? property.join(", ")
-// 			: property};
-// 		transition-duration: ${duration}s;
-// 		transition-timing-function: ${animation};
-// 	`;
-// }
