@@ -1,18 +1,13 @@
 import { FC, useEffect } from "react";
-import { Route, Router, Routes } from "react-router-dom";
-import GlobalStyled from "../styles/global";
-import { ThemeProvider } from "styled-components";
-
-import Header from "./Header";
-import useTypeSelector from "../hooks/useTypeSelector";
+import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../store/countries/countriesAction";
-import Controls from "./Controls";
-import CountryList from "./CountryList";
-import Container from "./Container";
+import NoteFoundPage from "../pages/NoteFoundPage";
+import CountryPage from "../pages/CountryPage";
+import Layout from "./Layout";
+import MainPage from "../pages/MainPage";
 
 const App: FC = () => {
-	const themFromState = useTypeSelector((state) => state.themeBody.themeStyled);
 	const dispatch = useDispatch<any>();
 
 	useEffect(() => {
@@ -20,31 +15,13 @@ const App: FC = () => {
 	}, [dispatch]);
 
 	return (
-		<ThemeProvider theme={themFromState}>
-			<GlobalStyled />
-			<Header />
-			<Routes>
-				<Route
-					element={
-						<main>
-							<Container>
-								<Controls />
-								<CountryList />
-							</Container>
-						</main>
-					}
-					path="/"
-				/>
-				<Route
-					element={
-						<div style={{ height: "2000px" }}>
-							<h1>ELEMENT</h1>
-						</div>
-					}
-					path="/h1"
-				/>
-			</Routes>
-		</ThemeProvider>
+		<Routes>
+			<Route path="/" element={<Layout />}>
+				<Route index element={<MainPage />} />
+				<Route path="country/:countryName/" element={<CountryPage />} />
+				<Route path="*" element={<NoteFoundPage />} />
+			</Route>
+		</Routes>
 	);
 };
 

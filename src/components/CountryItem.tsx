@@ -1,7 +1,8 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const CountryItemStyled = styled.div`
+const CountryItemStyled = styled(Link)`
 	cursor: pointer;
 	transition: background 0.3s;
 	border-radius: ${({ theme }) => theme.variables.radius};
@@ -63,13 +64,14 @@ const CountryItem: FC<IProps> = ({
 	name,
 }) => {
 	return (
-		<CountryItemStyled>
+		<CountryItemStyled to={`country/${name}`}>
 			<Image src={imgURL} alt="flag" />
 			<Description>
 				<Title>{name}</Title>
 				<Info>
 					<InfoItem>
-						<InfoItemBold>Population:</InfoItemBold> {population.toLocaleString()}
+						<InfoItemBold>Population:</InfoItemBold>{" "}
+						{population.toLocaleString()}
 					</InfoItem>
 					<InfoItem>
 						<InfoItemBold>Region:</InfoItemBold> {region}

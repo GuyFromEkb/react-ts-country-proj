@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Select, { MultiValue, StylesConfig } from "react-select";
 import useTypeSelector from "../hooks/useTypeSelector";
 import { allRegionCountries } from "../store/countries/countriesSelectors";
 import { setRegionFilterOptions } from "../store/filters/filterActions";
 import { TypeTheme } from "../styles/theme";
-
-export const options: IOption[] = [
-	{ label: "Americas", value: "Americas" },
-	{ label: "Europe", value: "Europe" },
-	{ label: "Africa", value: "Africa" },
-	{ label: "Antarctic", value: "Antarctic" },
-	{ label: "SSSSSSSS", value: "SSSSSSSSS" },
-	{ label: "AAAAAAAAAA", value: "AAAAAAAAAAAAAA" },
-	{ label: "DDDDDDDDDDD", value: "DDDDDDDDDDDDDDDDD" },
-	{ label: "CCCCCCCCCCCCC", value: "CCCCCCCCCCCCCCCCC" },
-	{ label: "ZZZZZZZZZZZZZ", value: "ZZZZZZZZZZZZ" },
-];
 
 interface IOption {
 	label: string;
@@ -110,7 +98,7 @@ const styles = (theme: TypeTheme) => {
 	return selectStyle;
 };
 
-const Selector = () => {
+const Selector: FC = () => {
 	const [regions, setRegions] = useState<string[]>([]);
 	const [regionsOptions, setRegionsOptions] = useState<IOption[]>([]);
 

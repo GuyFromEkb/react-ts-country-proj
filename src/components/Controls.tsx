@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styled from "styled-components";
 import Search from "./Search";
 import { Selector } from "./Selector";
@@ -13,7 +14,7 @@ const Wraper = styled.div`
 	}
 `;
 
-const Controls = () => {
+const Controls:FC = () => {
 	return (
 
 			<Wraper>

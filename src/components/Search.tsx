@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
@@ -37,7 +37,7 @@ const Input = styled.input`
 	color: ${({ theme }) => theme.text};
 `;
 
-const SearchInput = () => {
+const SearchInput:FC = () => {
 	const [value, setValue] = useState("");
 	const dispatch = useDispatch();
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import styled from "styled-components";
 import useTypeSelector from "../hooks/useTypeSelector";
 import { allFilterCountries } from "../store/countries/countriesSelectors";
@@ -10,7 +10,7 @@ const CountryListStyled = styled.div`
 	gap: 25px;
 `;
 
-const CountryList = () => {
+const CountryList:FC = () => {
 	const SHOW_ELEMENTS_IN_LIST = 20;
 	const [showInList, setShowInList] = useState(SHOW_ELEMENTS_IN_LIST);
 
