@@ -4,11 +4,21 @@ const allCountries = (state: RootState) => state.countries.countries;
 
 const allRegionCountries = (state: RootState) => {
 	const setReions = new Set<string>();
+
 	state.countries.countries.forEach((counties) => {
 		setReions.add(counties.region);
 	});
 
 	return Array.from(setReions);
+};
+
+const CountriesCodesWithName = (state: RootState) => {
+	const countries = state.countries.countries;
+	const mapCountriesCode = new Map<string, string>();
+
+	countries.forEach((c) => mapCountriesCode.set(c.cca3, c.name.common));
+
+	return mapCountriesCode;
 };
 
 const allFilterCountries = (
@@ -19,14 +29,12 @@ const allFilterCountries = (
 	const countries = state.countries.countries;
 
 	return countries.filter((c) => {
-		let search = true;
+		if (searchFilter) {
+			const match = c.name.common
+				.toLowerCase()
+				.includes(searchFilter.toLowerCase());
 
-		if (searchFilter.length > 0) {
-			search = c.name.common.toLowerCase().includes(searchFilter.toLowerCase());
-		}
-
-		if (!search) {
-			return false;
+			if (!match) return false;
 		}
 
 		if (regionFilter.length > 0) {
@@ -37,4 +45,9 @@ const allFilterCountries = (
 	});
 };
 
-export { allCountries, allRegionCountries, allFilterCountries };
+export {
+	allCountries,
+	allRegionCountries,
+	allFilterCountries,
+	CountriesCodesWithName,
+};

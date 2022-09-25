@@ -27,7 +27,8 @@ export interface ICountry {
 	population: number;
 	flags: {
 		png: string;
-	};
+	},
+	cca3: string
 }
 interface ICountriesState {
 	isLoading: boolean;

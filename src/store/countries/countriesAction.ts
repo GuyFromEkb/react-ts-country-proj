@@ -1,4 +1,4 @@
-import { TypeGetState, TypeThunkArgument } from "../store";
+import { TypeThunkArgument } from "../store";
 import {
 	ActionType,
 	ICountry,
@@ -13,7 +13,7 @@ const fetchCountries =
 				"https://restcountries.com/v3.1/all",
 				{
 					params: {
-						fields: "name,capital,region,population,flags",
+						fields: "name,capital,region,population,flags,cca3",
 					},
 				}
 			);
