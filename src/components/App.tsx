@@ -1,4 +1,5 @@
 import { FC, useEffect } from "react";
+import { Route, Router, Routes } from "react-router-dom";
 import GlobalStyled from "../styles/global";
 import { ThemeProvider } from "styled-components";
 
@@ -22,12 +23,27 @@ const App: FC = () => {
 		<ThemeProvider theme={themFromState}>
 			<GlobalStyled />
 			<Header />
-			<main>
-				<Container>
-					<Controls />
-					<CountryList />
-				</Container>
-			</main>
+			<Routes>
+				<Route
+					element={
+						<main>
+							<Container>
+								<Controls />
+								<CountryList />
+							</Container>
+						</main>
+					}
+					path="/"
+				/>
+				<Route
+					element={
+						<div style={{ height: "2000px" }}>
+							<h1>ELEMENT</h1>
+						</div>
+					}
+					path="/h1"
+				/>
+			</Routes>
 		</ThemeProvider>
 	);
 };

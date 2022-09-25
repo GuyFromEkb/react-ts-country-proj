@@ -5,13 +5,14 @@ import { IoMoon, IoMoonOutline } from "react-icons/io5";
 import useTypeSelector from "../hooks/useTypeSelector";
 import { useDispatch } from "react-redux";
 import { toggleTheme } from "../store/themeBody/themBodyActions";
+import { Link } from "react-router-dom";
 
 const HeaderStyled = styled.header`
 	padding: 32px 0;
 	box-shadow: ${({ theme }) => theme.shadow};
 `;
 
-const H1 = styled.h1`
+const LinkLogo = styled(Link)`
 	cursor: pointer;
 	font-size: ${({ theme }) => theme.variables.lg};
 	font-weight: ${({ theme }) => theme.variables.bold};
@@ -45,7 +46,7 @@ const Header: FC = () => {
 		<HeaderStyled>
 			<Container>
 				<Wraper>
-					<H1>Where is the world?</H1>
+					<LinkLogo to="/">Where is the world?</LinkLogo>
 					<ThemeSwitcher onClick={() => dispatch(toggleTheme)}>
 						{currentTheme === "light" ? (
 							<IoMoon size={20} />

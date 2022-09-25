@@ -11,29 +11,29 @@ const CountryListStyled = styled.div`
 `;
 
 const CountryList = () => {
-	const [showInList, setShowInList] = useState(20);
+	const SHOW_ELEMENTS_IN_LIST = 20;
+	const [showInList, setShowInList] = useState(SHOW_ELEMENTS_IN_LIST);
 
 	const filterRegion = useTypeSelector((state) => state.filters.region);
 	const filterSearch = useTypeSelector((state) => state.filters.search);
 
-	const handleScroll = (
-		setStateShowLost: React.Dispatch<React.SetStateAction<number>>
-	) => {
+	const handleScroll = () => {
 		const scrollHeight = document.documentElement.scrollHeight;
 		const currentScroll = window.pageYOffset;
 		const viewPort = document.documentElement.clientHeight;
 
 		if (scrollHeight <= currentScroll + viewPort + 100) {
-			setStateShowLost((prev) => prev + 20);
+			setShowInList((prevState) => prevState + SHOW_ELEMENTS_IN_LIST);
 		}
 	};
 
 	useEffect(() => {
-		document.addEventListener("scroll", handleScroll.bind(null, setShowInList));
+		document.addEventListener("scroll", handleScroll);
+		return () => document.removeEventListener("scroll", handleScroll);
 	}, []);
 
 	useEffect(() => {
-		setShowInList(20);
+		setShowInList(SHOW_ELEMENTS_IN_LIST);
 	}, [filterRegion, filterSearch]);
 
 	const countriesWithFilters = useTypeSelector((state) =>

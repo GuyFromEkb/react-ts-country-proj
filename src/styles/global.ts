@@ -51,10 +51,11 @@ ol[class] {
   list-style: none;
 }
 
-/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
-a:not([class]) {
-  text-decoration-skip-ink: auto;
+a{
+  text-decoration: none;
+  color: inherit;
 }
+
 
 /* Упрощаем работу с изображениями */
 img {
