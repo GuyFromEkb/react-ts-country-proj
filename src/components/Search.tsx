@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
@@ -37,14 +37,17 @@ const Input = styled.input`
 	color: ${({ theme }) => theme.text};
 `;
 
-const SearchInput:FC = () => {
+const SearchInput: FC = () => {
 	const [value, setValue] = useState("");
 	const dispatch = useDispatch();
 
 	const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
-		dispatch(setSeatchFilter(e.target.value));
 	};
+
+	useEffect(() => {
+		dispatch(setSeatchFilter(value));
+	}, [dispatch, value]);
 
 	return (
 		<InputWraper>
