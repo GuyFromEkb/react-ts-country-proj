@@ -7,6 +7,8 @@ import CountryPage from "../pages/CountryPage";
 import Layout from "./Layout";
 import MainPage from "../pages/MainPage";
 
+const COUNTRY_INFO_PAGE = "country/:countryName/";
+
 const App: FC = () => {
   const dispatch = useDispatch<any>();
 
@@ -14,12 +16,11 @@ const App: FC = () => {
     dispatch(fetchCountries());
   }, [dispatch]);
 
-  const newLocal = "country/:countryName/";
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
-        <Route path={newLocal} element={<CountryPage />} />
+        <Route path={COUNTRY_INFO_PAGE} element={<CountryPage />} />
         <Route path="*" element={<NoteFoundPage />} />
       </Route>
     </Routes>
