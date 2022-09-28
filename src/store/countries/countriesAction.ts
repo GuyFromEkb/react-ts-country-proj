@@ -5,6 +5,8 @@ import { Dispatch } from "react";
 const fetchCountries =
   () =>
   async (dispatch: Dispatch<ActionType>, _: never, { client }: TypeThunkArgument) => {
+    dispatch({ type: actionTypes.SET_LOADING, payload: true });
+
     try {
       const { data } = await client.get<ICountry[]>("https://restcountries.com/v3.1/all", {
         params: {

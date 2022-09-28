@@ -44,15 +44,15 @@ const initialState: ICountriesState = {
 const countriesReducer = (state: ICountriesState = initialState, action: ActionType): ICountriesState => {
   switch (action.type) {
     case actionTypes.SET_COUNTRIES: {
-      return { ...state, countries: action.payload };
+      return { ...state, isLoading: false, countries: action.payload };
     }
 
     case actionTypes.SET_LOADING: {
-      return { ...state, isLoading: action.payload };
+      return { ...state, error: null, isLoading: action.payload };
     }
 
     case actionTypes.SET_ERROR: {
-      return { ...state, error: action.payload };
+      return { ...state, isLoading: false, error: action.payload };
     }
 
     default:

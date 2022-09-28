@@ -43,6 +43,20 @@ body {
   background-color: ${(props) => props.theme.bg};  
   transition: .3s;
   transition-property: background-color, box-shadow;
+
+  &::-webkit-scrollbar{
+  width: 10px;
+  } 
+
+  &::-webkit-scrollbar-track {
+  background-color: ${({ theme }) => theme.bg};
+  box-shadow:${({ theme }) => theme.shadow};
+  }
+
+  &::-webkit-scrollbar-thumb {
+  border-radius: ${({ theme }) => theme.variables.radius};
+  background-color: ${({ theme }) => theme.scroll};
+}
 }
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/

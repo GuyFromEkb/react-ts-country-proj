@@ -8,7 +8,7 @@ const fetchInfoCountry = (countyName: string | undefined) => async (dispatch: Di
   }
 
   try {
-    dispatch({ type: countryInfoActionTypes.SET_LOADING, payload: true });
+    dispatch({ type: countryInfoActionTypes.SET_LOADING_COUNTRY_INFO, payload: true });
     const { data } = await axios.get<ICountryInfo[]>(
       `https://restcountries.com/v3.1/name/${countyName}?fullText=true`,
       {

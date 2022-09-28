@@ -11,7 +11,7 @@ const countryInfoReducer = (state = initialState, action: countryInfoAction): IS
     case countryInfoActionTypes.SET_COUNTRY: {
       return { ...state, isLoading: false, countryInfo: action.payload };
     }
-    case countryInfoActionTypes.SET_LOADING: {
+    case countryInfoActionTypes.SET_LOADING_COUNTRY_INFO: {
       return { ...state, error: null, isLoading: action.payload };
     }
     case countryInfoActionTypes.SET_ERROR: {
