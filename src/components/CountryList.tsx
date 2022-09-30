@@ -18,14 +18,18 @@ const CountryList: FC = () => {
 
   const filterRegion = useTypeSelector((state) => state.filters.region);
   const filterSearch = useTypeSelector((state) => state.filters.search);
+  const countriesWithFilters = useTypeSelector((state) => allFilterCountries(state, filterSearch, filterRegion)).slice(
+    0,
+    showInList
+  );
   const { error, isLoading } = useTypeSelector((state) => state.countries);
 
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
-    const currentScroll = window.pageYOffset;
+    const currentScroll = document.documentElement.scrollTop;
     const viewPort = document.documentElement.clientHeight;
 
-    if (scrollHeight <= currentScroll + viewPort + 100) {
+    if (scrollHeight <= currentScroll + viewPort + 200) {
       setShowInList((prevState) => prevState + SHOW_ELEMENTS_IN_LIST);
     }
   };
@@ -38,11 +42,6 @@ const CountryList: FC = () => {
   useEffect(() => {
     setShowInList(SHOW_ELEMENTS_IN_LIST);
   }, [filterRegion, filterSearch]);
-
-  const countriesWithFilters = useTypeSelector((state) => allFilterCountries(state, filterSearch, filterRegion)).slice(
-    0,
-    showInList
-  );
 
   return (
     <CountryListStyled>

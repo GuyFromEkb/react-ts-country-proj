@@ -1,7 +1,7 @@
 export enum countryInfoActionTypes {
-	SET_COUNTRY = "SET_COUNTRY",
-	SET_LOADING_COUNTRY_INFO = "SET_LOADING_COUNTRY_INFO",
-	SET_ERROR = "SET_ERROR",
+	SET_COUNTRY = "@@countryInfo/SET_COUNTRY",
+	SET_LOADING = "@@countryInfo/SET_LOADING",
+	SET_ERROR = "@@countryInfo/SET_ERROR",
 }
 
 interface IActionSetCountry {
@@ -10,7 +10,7 @@ interface IActionSetCountry {
 }
 
 interface IActionSetLoading {
-	type: countryInfoActionTypes.SET_LOADING_COUNTRY_INFO;
+	type: countryInfoActionTypes.SET_LOADING;
 	payload: boolean;
 }
 

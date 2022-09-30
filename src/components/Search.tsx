@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSeatchFilter } from "../store/filters/filterActions";
+import { setSearchControls } from "../store/controls/controlsActions";
 
 const SearchIcon = styled(BsSearch)`
 	font-size: 20px;
@@ -46,7 +46,7 @@ const SearchInput: FC = () => {
 	};
 
 	useEffect(() => {
-		dispatch(setSeatchFilter(value));
+		dispatch(setSearchControls(value));
 	}, [dispatch, value]);
 
 	return (

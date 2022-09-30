@@ -1,11 +1,11 @@
 import { TypeThunkArgument } from "../store";
-import { ActionType, ICountry, actionTypes } from "./../countries/countriesReducer";
 import { Dispatch } from "react";
+import { countriesActions, countriesActionTypes, ICountry } from "./types";
 
 const fetchCountries =
   () =>
-  async (dispatch: Dispatch<ActionType>, _: never, { client }: TypeThunkArgument) => {
-    dispatch({ type: actionTypes.SET_LOADING, payload: true });
+  async (dispatch: Dispatch<countriesActions>, _: never, { client }: TypeThunkArgument) => {
+    dispatch({ type: countriesActionTypes.SET_LOADING, payload: true });
 
     try {
       const { data } = await client.get<ICountry[]>("https://restcountries.com/v3.1/all", {
@@ -14,9 +14,9 @@ const fetchCountries =
         },
       });
 
-      dispatch({ type: actionTypes.SET_COUNTRIES, payload: data });
+      dispatch({ type: countriesActionTypes.SET_COUNTRIES, payload: data });
     } catch (error) {
-      dispatch({ type: actionTypes.SET_ERROR, payload: "Что-то пошло не так" });
+      dispatch({ type: countriesActionTypes.SET_ERROR, payload: "Что-то пошло не так" });
     }
   };
 
