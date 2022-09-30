@@ -34,7 +34,7 @@ const CountryList: FC = () => {
     const currentScroll = document.documentElement.scrollTop;
     const viewPort = document.documentElement.clientHeight;
 
-    if (pageHeight <= currentScroll + viewPort + 400) {
+    if (pageHeight <= currentScroll + viewPort + 300) {
       setShowInList((prevState) => prevState + SHOW_ELEMENTS_IN_LIST);
     }
   };
