@@ -1,5 +1,6 @@
 import { useState, useEffect, FC } from "react";
 import styled from "styled-components";
+import useEventListener from "../hooks/useEventListener";
 import useTypeSelector from "../hooks/useTypeSelector";
 import { allFilterCountries } from "../store/countries/countriesSelectors";
 import CountryItem from "./CountryItem";
@@ -11,45 +12,45 @@ const CountryListStyled = styled.div`
   gap: 25px;
   position: relative;
 `;
+const SHOW_ELEMENTS_IN_LIST = 20;
 
 const CountryList: FC = () => {
-  const SHOW_ELEMENTS_IN_LIST = 20;
   const [showInList, setShowInList] = useState(SHOW_ELEMENTS_IN_LIST);
 
+  const { error, isLoading } = useTypeSelector((state) => state.countries);
   const filterRegion = useTypeSelector((state) => state.filters.region);
   const filterSearch = useTypeSelector((state) => state.filters.search);
   const countriesWithFilters = useTypeSelector((state) => allFilterCountries(state, filterSearch, filterRegion)).slice(
     0,
     showInList
   );
-  const { error, isLoading } = useTypeSelector((state) => state.countries);
-
-  const handleScroll = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const currentScroll = document.documentElement.scrollTop;
-    const viewPort = document.documentElement.clientHeight;
-
-    if (scrollHeight <= currentScroll + viewPort + 200) {
-      setShowInList((prevState) => prevState + SHOW_ELEMENTS_IN_LIST);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
-    return () => document.removeEventListener("scroll", handleScroll);
-  }, []);
-
+  
   useEffect(() => {
     setShowInList(SHOW_ELEMENTS_IN_LIST);
   }, [filterRegion, filterSearch]);
 
+  const handleScroll = () => {
+    const pageHeight = document.documentElement.scrollHeight;
+    const currentScroll = document.documentElement.scrollTop;
+    const viewPort = document.documentElement.clientHeight;
+
+    if (pageHeight <= currentScroll + viewPort + 400) {
+      setShowInList((prevState) => prevState + SHOW_ELEMENTS_IN_LIST);
+    }
+  };
+
+  useEventListener("scroll", handleScroll);
+
+  const printLoading = isLoading;
+  const printError = error;
+  const printContent = countriesWithFilters && !isLoading && !error;
+
   return (
     <CountryListStyled>
-      {isLoading ? <Preloader /> : null}
-      {error ? <h1>{error}</h1> : null}
+      {printLoading && <Preloader />}
+      {printError && <h1>{error}</h1>}
 
-      {!isLoading &&
-        !error &&
+      {printContent &&
         countriesWithFilters.map((item) => (
           <CountryItem
             key={item.name.common + item.population}

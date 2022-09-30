@@ -1,18 +1,14 @@
 import { TypeThunkArgument } from "../store";
 import { Dispatch } from "react";
-import { countriesActions, countriesActionTypes, ICountry } from "./types";
+import { countriesActions, countriesActionTypes } from "./types";
 
 const fetchCountries =
   () =>
-  async (dispatch: Dispatch<countriesActions>, _: never, { client }: TypeThunkArgument) => {
+  async (dispatch: Dispatch<countriesActions>, _: never, { API }: TypeThunkArgument) => {
     dispatch({ type: countriesActionTypes.SET_LOADING, payload: true });
 
     try {
-      const { data } = await client.get<ICountry[]>("https://restcountries.com/v3.1/all", {
-        params: {
-          fields: "name,capital,region,population,flags,cca3",
-        },
-      });
+      const data = await API.getAllCountries();
 
       dispatch({ type: countriesActionTypes.SET_COUNTRIES, payload: data });
     } catch (error) {

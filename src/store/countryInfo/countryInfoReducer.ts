@@ -3,7 +3,7 @@ import { IState, countryInfoAction, countryInfoActionTypes } from "./types";
 const initialState: IState = {
   isLoading: false,
   error: null,
-  countryInfo: [],
+  countryInfo: null,
 };
 
 const countryInfoReducer = (state = initialState, action: countryInfoAction): IState => {
