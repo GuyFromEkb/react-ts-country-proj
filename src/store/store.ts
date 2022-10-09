@@ -6,8 +6,8 @@ import themeBodySlice from "./themeBody/themeBodySlice";
 const store = configureStore({
   reducer: {
     themeBody: themeBodySlice.reducer,
-    [countriesApi.reducerPath]: countriesApi.reducer,
     controls: controlsSlice.reducer,
+    [countriesApi.reducerPath]: countriesApi.reducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(countriesApi.middleware),

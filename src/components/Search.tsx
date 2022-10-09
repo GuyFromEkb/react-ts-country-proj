@@ -1,11 +1,8 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useAppDispatch } from "../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { setSearchControls } from "../store/controls/controlsSlice";
-// import { setSearchControls } from "../store/controls/controlsActions";
 
 const SearchIcon = styled(BsSearch)`
   font-size: 20px;
@@ -40,11 +37,10 @@ const Input = styled.input`
 `;
 
 const SearchInput: FC = () => {
-  const [value, setValue] = useState("");
   const dispatch = useAppDispatch();
+  const value = useAppSelector((state) => state.controls.search);
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
     dispatch(setSearchControls(e.target.value));
   };
 
