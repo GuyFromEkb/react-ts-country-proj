@@ -1,7 +1,6 @@
-
 import API from "../api";
 import { configureStore } from "@reduxjs/toolkit";
-import themBodyReducer from "./themeBody/themBodyReducer";
+import themeBodySlice from "./themeBody/themeBodySlice";
 
 // const initialState = { ...getUserTheme() };
 
@@ -13,16 +12,14 @@ export type TypeThunkArgument = typeof thunkArgument;
 
 const store = configureStore({
   reducer: {
-    themeBody: themBodyReducer,
+    themeBody: themeBodySlice.reducer,
   },
+  devTools: true,
 });
 
-// const store = createStore(
-//   rootReducer,
-//   initialState,
-//   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(thunkArgument)))
-// );
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
-export type TypeGetState = typeof store.getState;
+// export type TypeGetState = typeof store.getState;
 
 export default store;
