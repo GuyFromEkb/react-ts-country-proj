@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ICountry } from "../store/countries/types";
+import { ICountry, ICountryInfo } from "../interfaces";
+
 
 const countriesApi = createApi({
   reducerPath: "@@countriesApi",
@@ -15,8 +16,18 @@ const countriesApi = createApi({
         },
       }),
     }),
+    fetchCountryByName: build.query<ICountryInfo, string>({
+      query: (countyName: string) => ({
+        url: "name/" + countyName,
+        params: {
+          fields: "name,population,region,subregion,capital,tld,currencies,languages,borders,flags",
+          fullText: "true",
+        },
+      }),
+      transformResponse: (response: ICountryInfo[]) => response[0],
+    }),
   }),
 });
 
-export const { useFetchAllCountriesQuery } = countriesApi;
+export const { useFetchAllCountriesQuery,useFetchCountryByNameQuery } = countriesApi;
 export { countriesApi };

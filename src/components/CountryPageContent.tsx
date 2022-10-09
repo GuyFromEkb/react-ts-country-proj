@@ -1,9 +1,8 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-// import useTypeSelector from "../hooks/useTypeSelector";
-// import { countriesCodesWithName } from "../store/countries/countriesSelectors";
-import { ICountryInfo } from "../store/countryInfo/types";
+import { useFetchAllCountriesQuery } from "../api/countries.api";
+import { ICountryInfo } from "../interfaces";
 
 const CountryPageContainer = styled.div`
   padding-top: 50px;
@@ -84,10 +83,13 @@ const CountryPageContent: FC<IProps> = ({
   tld,
   flags,
 }) => {
-  // const countriesCodes = useTypeSelector(countriesCodesWithName);
   const printNativeName = Object.values(name.nativeName)[0].common;
   const printCurrencies = Object.values(currencies).map((item) => `${item.name} [ ${item.symbol} ]`);
   const printLanguages = Object.values(languages);
+
+  const { data: countries } = useFetchAllCountriesQuery();
+  const countriesCode = new Map<string, string>();
+  countries?.forEach((coutry) => countriesCode.set(coutry.cca3, coutry.name.common));
 
   return (
     <CountryPageContainer key={name.common}>
@@ -132,13 +134,16 @@ const CountryPageContent: FC<IProps> = ({
         <BorderWrap>
           <Bold>Borders:</Bold>
 
-          {/* {borders.length > 0
+          {borders.length > 0
             ? borders.map((border) => {
-                const countryName = countriesCodes.get(border);
-                return <BorderItem key={border} to={`../country/${countryName}`}>{countryName}</BorderItem>;
+                const countryName = countriesCode.get(border);
+                return (
+                  <BorderItem key={border} to={`../country/${countryName}`}>
+                    {countryName}
+                  </BorderItem>
+                );
               })
-            : "There is no border country"} */}
-
+            : "There is no border country"}
         </BorderWrap>
       </div>
     </CountryPageContainer>
