@@ -10,7 +10,7 @@ class Api {
   getAllCountries = async () => {
     const { data } = await axios.get<ICountry[]>(ALL_COUNTRIES, {
       params: {
-        fields: "name,capital,region,population,flags,cca3",
+        
       },
     });
 

@@ -1,8 +1,8 @@
 import { useState, useEffect, FC } from "react";
 import styled from "styled-components";
+import { useFetchAllCountriesQuery } from "../api/countries.api";
 import useEventListener from "../hooks/useEventListener";
-// import useTypeSelector from "../hooks/useTypeSelector";
-// import CountryItem from "./CountryItem";
+import CountryItem from "./CountryItem";
 import Preloader from "./Preloader";
 
 const CountryListStyled = styled.div`
@@ -16,7 +16,9 @@ const SHOW_ELEMENTS_IN_LIST = 20;
 const CountryList: FC = () => {
   const [showInList, setShowInList] = useState(SHOW_ELEMENTS_IN_LIST);
 
-  // const { error, isLoading } = useTypeSelector((state) => state.countries);
+  const { data, isError, isLoading } = useFetchAllCountriesQuery();
+  const countries = data?.slice(0, showInList);
+
   // const filterRegion = useTypeSelector((state) => state.filters.region);
   // const filterSearch = useTypeSelector((state) => state.filters.search);
 
@@ -24,7 +26,7 @@ const CountryList: FC = () => {
   //   0,
   //   showInList
   // );
-  
+
   // useEffect(() => {
   //   setShowInList(SHOW_ELEMENTS_IN_LIST);
   // }, [filterRegion, filterSearch]);
@@ -41,17 +43,17 @@ const CountryList: FC = () => {
 
   useEventListener("scroll", handleScroll);
 
-  // const printLoading = isLoading;
-  // const printError = error;
-  // const printContent = countriesWithFilters && !isLoading && !error;
+  const printLoading = isLoading;
+  const printError = isError;
+  const printContent = data && !isLoading && !isError;
 
   return (
     <CountryListStyled>
-      {/* {printLoading && <Preloader />}
-      {printError && <h1>{error}</h1>} */}
+      {printLoading && <Preloader />}
+      {printError && <h1>{"Что то пошло не так"}</h1>}
 
-      {/* {printContent &&
-        countriesWithFilters.map((item) => (
+      {printContent &&
+        countries?.map((item) => (
           <CountryItem
             key={item.name.common + item.population}
             imgURL={item.flags.png}
@@ -60,7 +62,7 @@ const CountryList: FC = () => {
             region={item.region}
             capital={item.capital}
           />
-        ))} */}
+        ))}
     </CountryListStyled>
   );
 };

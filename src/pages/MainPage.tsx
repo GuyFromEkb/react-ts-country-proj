@@ -3,7 +3,6 @@ import Controls from "../components/Controls";
 import CountryList from "../components/CountryList";
 
 const MainPage: FC = () => {
-  
   return (
     <>
       <Controls />
