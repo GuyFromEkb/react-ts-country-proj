@@ -2,8 +2,8 @@ import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import useTypeSelector from "../hooks/useTypeSelector";
-import { fetchInfoCountry } from "../store/countryInfo/countryInfoActions";
+// import useTypeSelector from "../hooks/useTypeSelector";
+// import { fetchInfoCountry } from "../store/countryInfo/countryInfoActions";
 import { BiLeftArrow } from "react-icons/bi";
 import Preloader from "../components/Preloader";
 import CountryPageContent from "../components/CountryPageContent";
@@ -43,19 +43,19 @@ const CountryPage: FC = () => {
 
   const dispatch = useDispatch<any>();
 
-  const { countryInfo, error, isLoading } = useTypeSelector((state) => state.country);
+  // const { countryInfo, error, isLoading } = useTypeSelector((state) => state.country);
 
   useEffect(() => {
-    dispatch(fetchInfoCountry(countryName));
+    // dispatch(fetchInfoCountry(countryName));
   }, [dispatch, countryName]);
 
   const onBack = () => {
     navigate(-1);
   };
 
-  const printLoading = isLoading;
-  const printError = error;
-  const printContent = countryInfo && !isLoading && !error;
+  // const printLoading = isLoading;
+  // const printError = error;
+  // const printContent = countryInfo && !isLoading && !error;
 
   return (
     <CountryPageStyled>
@@ -63,9 +63,9 @@ const CountryPage: FC = () => {
         <BiLeftArrow /> Back
       </BtnBack>
 
-      {printLoading && <Preloader />}
+      {/* {printLoading && <Preloader />}
       {printError && <h1>{error}</h1>}
-      {printContent && <CountryPageContent {...countryInfo} />}
+      {printContent && <CountryPageContent {...countryInfo} />} */}
     </CountryPageStyled>
   );
 };

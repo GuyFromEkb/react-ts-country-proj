@@ -1,9 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Select, { MultiValue, StylesConfig } from "react-select";
-import useTypeSelector from "../hooks/useTypeSelector";
-import { allRegionCountries } from "../store/countries/countriesSelectors";
-import { setRegionControlsOptions } from "../store/controls/controlsActions";
 import { TypeTheme } from "../styles/theme";
 
 interface IOption {
@@ -102,10 +99,7 @@ const Selector: FC = () => {
   const [regions, setRegions] = useState<string[]>([]);
   const [regionsOptions, setRegionsOptions] = useState<IOption[]>([]);
 
-  const theme = useTypeSelector((state) => state.themeBody.themeStyled);
-  const allRegion = useTypeSelector(allRegionCountries);
-
-  const dispatch = useDispatch();
+  // const theme = useTypeSelector((state) => state.themeBody.themeStyled);
 
   const getValue = () => {
     return regionsOptions.filter((item) => regions.includes(item.label));
@@ -116,23 +110,23 @@ const Selector: FC = () => {
     setRegions(valueLabel);
   };
 
-  useEffect(() => {
-    if (allRegion.length > 0) {
-      const regOptions = allRegion.map((item) => ({
-        label: item,
-        value: item,
-      }));
-      setRegionsOptions(regOptions);
-    }
-  }, [allRegion]);
+  // useEffect(() => {
+  //   if (allRegion.length > 0) {
+  //     const regOptions = allRegion.map((item) => ({
+  //       label: item,
+  //       value: item,
+  //     }));
+  //     setRegionsOptions(regOptions);
+  //   }
+  // }, [allRegion]);
 
-  useEffect(() => {
-    dispatch(setRegionControlsOptions(regions));
-  }, [dispatch, regions]);
+  // useEffect(() => {
+  //   dispatch(setRegionControlsOptions(regions));
+  // }, [dispatch, regions]);
 
   return (
     <Select
-      styles={styles(theme)}
+      // styles={styles(theme)}
       value={getValue()}
       onChange={onChangeValue}
       placeholder="Filter by Region"

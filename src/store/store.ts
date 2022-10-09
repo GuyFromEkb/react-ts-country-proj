@@ -1,23 +1,27 @@
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import { rootReducer } from "./rootReducer";
-import getUserTheme from "../utils/getUserTheme";
-import API from "../api";
 
-const initialState = { ...getUserTheme() };
+import API from "../api";
+import { configureStore } from "@reduxjs/toolkit";
+import themBodyReducer from "./themeBody/themBodyReducer";
+
+// const initialState = { ...getUserTheme() };
 
 const thunkArgument = {
-	API,
+  API,
 };
 
 export type TypeThunkArgument = typeof thunkArgument;
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(thunkArgument)))
-);
+const store = configureStore({
+  reducer: {
+    themeBody: themBodyReducer,
+  },
+});
+
+// const store = createStore(
+//   rootReducer,
+//   initialState,
+//   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(thunkArgument)))
+// );
 
 export type TypeGetState = typeof store.getState;
 

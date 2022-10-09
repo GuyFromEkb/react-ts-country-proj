@@ -1,9 +1,8 @@
 import { useState, useEffect, FC } from "react";
 import styled from "styled-components";
 import useEventListener from "../hooks/useEventListener";
-import useTypeSelector from "../hooks/useTypeSelector";
-import { allFilterCountries } from "../store/countries/countriesSelectors";
-import CountryItem from "./CountryItem";
+// import useTypeSelector from "../hooks/useTypeSelector";
+// import CountryItem from "./CountryItem";
 import Preloader from "./Preloader";
 
 const CountryListStyled = styled.div`
@@ -17,17 +16,18 @@ const SHOW_ELEMENTS_IN_LIST = 20;
 const CountryList: FC = () => {
   const [showInList, setShowInList] = useState(SHOW_ELEMENTS_IN_LIST);
 
-  const { error, isLoading } = useTypeSelector((state) => state.countries);
-  const filterRegion = useTypeSelector((state) => state.filters.region);
-  const filterSearch = useTypeSelector((state) => state.filters.search);
-  const countriesWithFilters = useTypeSelector((state) => allFilterCountries(state, filterSearch, filterRegion)).slice(
-    0,
-    showInList
-  );
+  // const { error, isLoading } = useTypeSelector((state) => state.countries);
+  // const filterRegion = useTypeSelector((state) => state.filters.region);
+  // const filterSearch = useTypeSelector((state) => state.filters.search);
+
+  // const countriesWithFilters = useTypeSelector((state) => allFilterCountries(state, filterSearch, filterRegion)).slice(
+  //   0,
+  //   showInList
+  // );
   
-  useEffect(() => {
-    setShowInList(SHOW_ELEMENTS_IN_LIST);
-  }, [filterRegion, filterSearch]);
+  // useEffect(() => {
+  //   setShowInList(SHOW_ELEMENTS_IN_LIST);
+  // }, [filterRegion, filterSearch]);
 
   const handleScroll = () => {
     const pageHeight = document.documentElement.scrollHeight;
@@ -41,16 +41,16 @@ const CountryList: FC = () => {
 
   useEventListener("scroll", handleScroll);
 
-  const printLoading = isLoading;
-  const printError = error;
-  const printContent = countriesWithFilters && !isLoading && !error;
+  // const printLoading = isLoading;
+  // const printError = error;
+  // const printContent = countriesWithFilters && !isLoading && !error;
 
   return (
     <CountryListStyled>
-      {printLoading && <Preloader />}
-      {printError && <h1>{error}</h1>}
+      {/* {printLoading && <Preloader />}
+      {printError && <h1>{error}</h1>} */}
 
-      {printContent &&
+      {/* {printContent &&
         countriesWithFilters.map((item) => (
           <CountryItem
             key={item.name.common + item.population}
@@ -60,7 +60,7 @@ const CountryList: FC = () => {
             region={item.region}
             capital={item.capital}
           />
-        ))}
+        ))} */}
     </CountryListStyled>
   );
 };

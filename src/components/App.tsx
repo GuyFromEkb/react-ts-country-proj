@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchCountries } from "../store/countries/countriesAction";
+// import { fetchCountries } from "../store/countries/countriesAction";
 import NoteFoundPage from "../pages/NoteFoundPage";
 import CountryPage from "../pages/CountryPage";
 import Layout from "./Layout";
@@ -12,9 +12,9 @@ const COUNTRY_INFO_PAGE = "country/:countryName/";
 const App: FC = () => {
   const dispatch = useDispatch<any>();
 
-  useEffect(() => {
-    dispatch(fetchCountries());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchCountries());
+  // }, [dispatch]);
 
   return (
     <Routes>

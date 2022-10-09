@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import useTypeSelector from "../hooks/useTypeSelector";
-import { countriesCodesWithName } from "../store/countries/countriesSelectors";
+// import useTypeSelector from "../hooks/useTypeSelector";
+// import { countriesCodesWithName } from "../store/countries/countriesSelectors";
 import { ICountryInfo } from "../store/countryInfo/types";
 
 const CountryPageContainer = styled.div`
@@ -84,7 +84,7 @@ const CountryPageContent: FC<IProps> = ({
   tld,
   flags,
 }) => {
-  const countriesCodes = useTypeSelector(countriesCodesWithName);
+  // const countriesCodes = useTypeSelector(countriesCodesWithName);
   const printNativeName = Object.values(name.nativeName)[0].common;
   const printCurrencies = Object.values(currencies).map((item) => `${item.name} [ ${item.symbol} ]`);
   const printLanguages = Object.values(languages);
@@ -131,12 +131,14 @@ const CountryPageContent: FC<IProps> = ({
 
         <BorderWrap>
           <Bold>Borders:</Bold>
-          {borders.length > 0
+
+          {/* {borders.length > 0
             ? borders.map((border) => {
                 const countryName = countriesCodes.get(border);
                 return <BorderItem key={border} to={`../country/${countryName}`}>{countryName}</BorderItem>;
               })
-            : "There is no border country"}
+            : "There is no border country"} */}
+
         </BorderWrap>
       </div>
     </CountryPageContainer>

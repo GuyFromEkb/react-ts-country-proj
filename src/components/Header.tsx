@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import styled from "styled-components";
 import Container from "./Container";
 import { IoMoon, IoMoonOutline } from "react-icons/io5";
-import useTypeSelector from "../hooks/useTypeSelector";
+// import useTypeSelector from "../hooks/useTypeSelector";
 import { useDispatch } from "react-redux";
 import { toggleTheme } from "../store/themeBody/themBodyActions";
 import { Link } from "react-router-dom";
@@ -37,22 +37,22 @@ const ThemeSwitcher = styled.div`
 `;
 
 const Header: FC = () => {
-  const currentTheme = useTypeSelector((state) => state.themeBody.themeName);
+  // const currentTheme = useTypeSelector((state) => state.themeBody.themeName);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem("reduxStore", JSON.stringify({ themeName: currentTheme }));
-  }, [currentTheme]);
+  // useEffect(() => {
+  //   localStorage.setItem("reduxStore", JSON.stringify({ themeName: currentTheme }));
+  // }, [currentTheme]);
 
   return (
     <HeaderStyled>
       <Container>
         <Wraper>
           <LinkLogo to="/">Where is the world?</LinkLogo>
-          <ThemeSwitcher onClick={() => dispatch(toggleTheme)}>
+          {/* <ThemeSwitcher onClick={() => dispatch(toggleTheme)}>
             {currentTheme === "light" ? <IoMoon size={20} /> : <IoMoonOutline size={20} />}
             {currentTheme === "light" ? "Light Mode" : "Dark Mode"}
-          </ThemeSwitcher>
+          </ThemeSwitcher> */}
         </Wraper>
       </Container>
     </HeaderStyled>
