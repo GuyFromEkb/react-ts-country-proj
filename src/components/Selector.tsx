@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Select, { MultiValue, StylesConfig } from "react-select";
+import { useFetchAllCountriesQuery } from "../api/countries.api";
+import { useAppSelector } from "../hooks/redux";
 import { TypeTheme } from "../styles/theme";
 
 interface IOption {
@@ -98,8 +100,8 @@ const styles = (theme: TypeTheme) => {
 const Selector: FC = () => {
   const [regions, setRegions] = useState<string[]>([]);
   const [regionsOptions, setRegionsOptions] = useState<IOption[]>([]);
-
-  // const theme = useTypeSelector((state) => state.themeBody.themeStyled);
+  const theme = useAppSelector((state) => state.themeBody.themeStyled);
+  const { data: countries } = useFetchAllCountriesQuery();
 
   const getValue = () => {
     return regionsOptions.filter((item) => regions.includes(item.label));
@@ -126,7 +128,7 @@ const Selector: FC = () => {
 
   return (
     <Select
-      // styles={styles(theme)}
+      styles={styles(theme)}
       value={getValue()}
       onChange={onChangeValue}
       placeholder="Filter by Region"
