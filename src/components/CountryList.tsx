@@ -1,7 +1,7 @@
-import { useState, useEffect, FC } from "react";
+import { useState, FC } from "react";
 import styled from "styled-components";
-import { useFetchAllCountriesQuery } from "../api/countries.api";
 import useEventListener from "../hooks/useEventListener";
+import { useGetCountriesWithFilters } from "../hooks/useGetCountriesWithFilters";
 import CountryItem from "./CountryItem";
 import Preloader from "./Preloader";
 
@@ -14,22 +14,9 @@ const CountryListStyled = styled.div`
 const SHOW_ELEMENTS_IN_LIST = 20;
 
 const CountryList: FC = () => {
+  const { countriesWithFilters, isError, isLoading } = useGetCountriesWithFilters();
   const [showInList, setShowInList] = useState(SHOW_ELEMENTS_IN_LIST);
-
-  const { data, isError, isLoading } = useFetchAllCountriesQuery();
-  const countries = data?.slice(0, showInList);
-
-  // const filterRegion = useTypeSelector((state) => state.filters.region);
-  // const filterSearch = useTypeSelector((state) => state.filters.search);
-
-  // const countriesWithFilters = useTypeSelector((state) => allFilterCountries(state, filterSearch, filterRegion)).slice(
-  //   0,
-  //   showInList
-  // );
-
-  // useEffect(() => {
-  //   setShowInList(SHOW_ELEMENTS_IN_LIST);
-  // }, [filterRegion, filterSearch]);
+  const countries = countriesWithFilters?.slice(0, showInList);
 
   const handleScroll = () => {
     const pageHeight = document.documentElement.scrollHeight;
@@ -45,7 +32,7 @@ const CountryList: FC = () => {
 
   const printLoading = isLoading;
   const printError = isError;
-  const printContent = data && !isLoading && !isError;
+  const printContent = countries && !isLoading && !isError;
 
   return (
     <CountryListStyled>
