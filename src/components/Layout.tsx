@@ -1,16 +1,16 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-// import useTypeSelector from "../hooks/useTypeSelector";
 import GlobalStyled from "../styles/global";
 import Container from "./Container";
 import Header from "./Header";
-import { baseTheme, darkTheme } from "../styles/theme";
+import { useAppSelector } from "../hooks/redux";
 
 const Layout: FC = () => {
-  // const themFromState = useTypeSelector((state) => state.themeBody.themeStyled);
+  const themFromState = useAppSelector((state) => state.themeBody.themeStyled);
+
   return (
-    <ThemeProvider theme={{ ...baseTheme, ...darkTheme }}>
+    <ThemeProvider theme={themFromState}>
       <GlobalStyled />
       <Header />
       <main>

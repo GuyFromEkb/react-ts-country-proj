@@ -28,3 +28,12 @@ export const darkTheme = {
   shadow: "rgba(245, 245, 245, 0.2) 0 0 8px",
   scroll: "hsl(209, 23%, 22%)",
 };
+
+export const lightThemeState = {
+  themeName: "light",
+  themeStyled: { ...baseTheme, ...lightTheme },
+};
+export const darkThemeState = {
+  themeName: "dark",
+  themeStyled: { ...baseTheme, ...darkTheme },
+};
