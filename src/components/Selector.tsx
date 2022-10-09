@@ -1,14 +1,15 @@
-import { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { FC } from "react";
 import Select, { MultiValue, StylesConfig } from "react-select";
-import { useFetchAllCountriesQuery } from "../api/countries.api";
-import { useAppSelector } from "../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useGetAllCountriesOptions } from "../hooks/useGetAllCountriesOptions";
+import { setRegionControls } from "../store/controls/controlsSlice";
 import { TypeTheme } from "../styles/theme";
 
-interface IOption {
+export interface IOption {
   label: string;
   value: string;
 }
+
 type IsMulti = true;
 
 const styles = (theme: TypeTheme) => {
@@ -98,38 +99,19 @@ const styles = (theme: TypeTheme) => {
 };
 
 const Selector: FC = () => {
-  const [regions, setRegions] = useState<string[]>([]);
-  const [regionsOptions, setRegionsOptions] = useState<IOption[]>([]);
+  const regionsOptions = useGetAllCountriesOptions();
   const theme = useAppSelector((state) => state.themeBody.themeStyled);
-  const { data: countries } = useFetchAllCountriesQuery();
-
-  const getValue = () => {
-    return regionsOptions.filter((item) => regions.includes(item.label));
-  };
+  const values = useAppSelector((state) => state.controls.region);
+  const dispatch = useAppDispatch();
 
   const onChangeValue = (value: MultiValue<IOption>) => {
-    const valueLabel = value.map((item) => item.label);
-    setRegions(valueLabel);
+    dispatch(setRegionControls(value as IOption[]));
   };
-
-  // useEffect(() => {
-  //   if (allRegion.length > 0) {
-  //     const regOptions = allRegion.map((item) => ({
-  //       label: item,
-  //       value: item,
-  //     }));
-  //     setRegionsOptions(regOptions);
-  //   }
-  // }, [allRegion]);
-
-  // useEffect(() => {
-  //   dispatch(setRegionControlsOptions(regions));
-  // }, [dispatch, regions]);
 
   return (
     <Select
       styles={styles(theme)}
-      value={getValue()}
+      value={values}
       onChange={onChangeValue}
       placeholder="Filter by Region"
       isMulti

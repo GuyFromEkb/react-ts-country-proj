@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IOption } from "../../components/Selector";
 
-export interface IInitialState {
+export interface IControlsState {
   search: string;
-  region: string[];
+  region: IOption[];
 }
 
-const initialState: IInitialState = {
+const initialState: IControlsState = {
   search: "",
   region: [],
 };
@@ -17,7 +18,7 @@ const controlsSlice = createSlice({
     setSearchControls: (state, action: PayloadAction<string>) => {
       state.search = action.payload;
     },
-    setRegionControls: (state, action: PayloadAction<string[]>) => {
+    setRegionControls: (state, action: PayloadAction<IOption[]>) => {
       state.region = action.payload;
     },
   },
