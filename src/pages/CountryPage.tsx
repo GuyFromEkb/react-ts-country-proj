@@ -1,12 +1,10 @@
-import { FC, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import useTypeSelector from "../hooks/useTypeSelector";
-import { fetchInfoCountry } from "../store/countryInfo/countryInfoActions";
 import { BiLeftArrow } from "react-icons/bi";
 import Preloader from "../components/Preloader";
 import CountryPageContent from "../components/CountryPageContent";
+import { useFetchCountryByNameQuery } from "../api/countries.api";
 
 const CountryPageStyled = styled.div`
   padding-top: 60px;
@@ -38,24 +36,17 @@ const BtnBack = styled.div`
 `;
 
 const CountryPage: FC = () => {
-  const { countryName } = useParams<{ countryName: string }>();
   const navigate = useNavigate();
-
-  const dispatch = useDispatch<any>();
-
-  const { countryInfo, error, isLoading } = useTypeSelector((state) => state.country);
-
-  useEffect(() => {
-    dispatch(fetchInfoCountry(countryName));
-  }, [dispatch, countryName]);
+  const { countryName } = useParams<{ countryName: string }>();
+  const { data: countryInfo, isLoading, isError, isFetching } = useFetchCountryByNameQuery(countryName!);
 
   const onBack = () => {
     navigate(-1);
   };
 
-  const printLoading = isLoading;
-  const printError = error;
-  const printContent = countryInfo && !isLoading && !error;
+  const printLoading = isLoading || isFetching;
+  const printError = isError;
+  const printContent = countryInfo && !printLoading && !isError;
 
   return (
     <CountryPageStyled>
@@ -64,7 +55,7 @@ const CountryPage: FC = () => {
       </BtnBack>
 
       {printLoading && <Preloader />}
-      {printError && <h1>{error}</h1>}
+      {printError && <h1>{"Что то пошло не так..."}</h1>}
       {printContent && <CountryPageContent {...countryInfo} />}
     </CountryPageStyled>
   );

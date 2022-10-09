@@ -1,11 +1,10 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import Container from "./Container";
 import { IoMoon, IoMoonOutline } from "react-icons/io5";
-import useTypeSelector from "../hooks/useTypeSelector";
-import { useDispatch } from "react-redux";
-import { toggleTheme } from "../store/themeBody/themBodyActions";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { toggleTheme } from "../store/themeBody/themeBodySlice";
 
 const HeaderStyled = styled.header`
   padding: 32px 0;
@@ -22,7 +21,7 @@ const Wraper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
   @media (max-width: 564px) {
     flex-direction: column;
     gap: 20px;
@@ -37,19 +36,19 @@ const ThemeSwitcher = styled.div`
 `;
 
 const Header: FC = () => {
-  const currentTheme = useTypeSelector((state) => state.themeBody.themeName);
-  const dispatch = useDispatch();
+  const currentTheme = useAppSelector((state) => state.themeBody.themeName);
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    localStorage.setItem("reduxStore", JSON.stringify({ themeName: currentTheme }));
-  }, [currentTheme]);
+  const onToggletheme = () => {
+    dispatch(toggleTheme(currentTheme));
+  };
 
   return (
     <HeaderStyled>
       <Container>
         <Wraper>
           <LinkLogo to="/">Where is the world?</LinkLogo>
-          <ThemeSwitcher onClick={() => dispatch(toggleTheme)}>
+          <ThemeSwitcher onClick={onToggletheme}>
             {currentTheme === "light" ? <IoMoon size={20} /> : <IoMoonOutline size={20} />}
             {currentTheme === "light" ? "Light Mode" : "Dark Mode"}
           </ThemeSwitcher>
